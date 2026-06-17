@@ -3,482 +3,1186 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="AgroIntegra Consultores — Asesoría agrícola profesional en Región de Valparaíso. Riego tecnificado, frutales, suelos y ganadería. José Ignacio Farías López, Ingeniero Agrícola.">
-<meta property="og:title" content="AgroIntegra Consultores — Asesoría Agrícola Profesional">
-<meta property="og:description" content="Asesoría técnica en frutales, riego, suelos y ganadería. Región de Valparaíso y Coquimbo.">
+<meta name="description" content="AgroIntegra Consultores — Asesoría agronómica profesional en la Región de Valparaíso. Fertilización, riego tecnificado, manejo de frutales y agricultura de precisión.">
+<meta name="keywords" content="asesoría agronómica, agronomía Valparaíso, riego tecnificado, frutales, agricultura de precisión, análisis de suelos, Chile">
+<meta name="author" content="AgroIntegra Consultores">
+<meta property="og:title" content="AgroIntegra Consultores — Asesoría Agronómica Profesional">
+<meta property="og:description" content="Soluciones agronómicas para una agricultura más rentable y sustentable en la Región de Valparaíso.">
 <meta property="og:type" content="website">
-<title>AgroIntegra Consultores — José Ignacio Farías López</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<title>AgroIntegra Consultores — Asesoría Agronómica Profesional</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ===== DESIGN TOKENS ===== */
+:root {
+  --verde-profundo: #1a3a1f;
+  --verde-medio: #2d6a35;
+  --verde-vivo: #4a9c54;
+  --verde-claro: #8cc994;
+  --tierra: #a07840;
+  --tierra-claro: #c9a96e;
+  --crema: #f7f3ed;
+  --blanco: #ffffff;
+  --gris-texto: #3a3a3a;
+  --gris-suave: #f0ede8;
+  --sombra: rgba(26,58,31,0.12);
+  --sombra-fuerte: rgba(26,58,31,0.22);
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-label: 'Space Grotesk', system-ui, sans-serif;
+
+  --radius: 12px;
+  --radius-lg: 20px;
+  --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--font-body); color: var(--gris-texto); background: var(--blanco); overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+/* ===== HEADER ===== */
+#header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(26,58,31,0.97);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  transition: var(--transition);
+}
+#header.scrolled { background: var(--verde-profundo); box-shadow: 0 4px 24px var(--sombra-fuerte); }
+.header-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px;
+}
+.logo { display: flex; align-items: center; gap: 12px; }
+.logo-svg { width: 44px; height: 44px; flex-shrink: 0; }
+.logo-text { display: flex; flex-direction: column; line-height: 1; }
+.logo-name { font-family: var(--font-display); font-size: 1.15rem; color: var(--blanco); letter-spacing: 0.04em; }
+.logo-sub { font-family: var(--font-label); font-size: 0.6rem; color: var(--tierra-claro); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 2px; }
+
+nav { display: flex; align-items: center; gap: 32px; }
+nav a { font-family: var(--font-label); font-size: 0.82rem; font-weight: 500; color: rgba(255,255,255,0.8); letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+nav a:hover { color: var(--verde-claro); }
+
+.btn-header {
+  font-family: var(--font-label); font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  background: var(--tierra); color: var(--blanco);
+  padding: 10px 22px; border-radius: 6px;
+  border: 2px solid var(--tierra);
+  transition: var(--transition); cursor: pointer; white-space: nowrap;
+}
+.btn-header:hover { background: var(--tierra-claro); border-color: var(--tierra-claro); transform: translateY(-1px); }
+
+.nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+.nav-toggle span { width: 24px; height: 2px; background: var(--blanco); border-radius: 2px; transition: var(--transition); display: block; }
+.nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+@media (max-width: 900px) {
+  nav, .btn-header { display: none; }
+  .nav-toggle { display: flex; }
+  nav.open {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 0;
+    position: absolute; top: 72px; left: 0; right: 0;
+    background: var(--verde-profundo); padding: 16px 24px 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  nav.open a { padding: 12px 0; font-size: 0.9rem; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  nav.open .btn-header { display: block; margin-top: 16px; width: 100%; text-align: center; }
+}
+
+/* ===== HERO ===== */
+#hero {
+  position: relative; min-height: 100vh; display: flex; align-items: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(135deg, rgba(26,58,31,0.82) 0%, rgba(26,58,31,0.55) 50%, rgba(45,106,53,0.4) 100%),
+    url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1800&q=80') center/cover no-repeat;
+}
+.hero-pattern {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 80% 20%, rgba(74,156,84,0.18) 0%, transparent 50%);
+}
+.hero-inner {
+  position: relative; z-index: 1;
+  max-width: 1200px; margin: 0 auto; padding: 140px 24px 80px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-label); font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--tierra-claro);
+  background: rgba(160,120,64,0.18); border: 1px solid rgba(201,169,110,0.3);
+  padding: 6px 14px; border-radius: 20px; margin-bottom: 20px;
+  backdrop-filter: blur(4px);
+}
+.hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--tierra-claro); border-radius: 50%; }
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 700; color: var(--blanco); line-height: 1.15;
+  margin-bottom: 20px; letter-spacing: -0.01em;
+}
+.hero-title em { color: var(--verde-claro); font-style: normal; }
+.hero-desc {
+  font-size: 1.05rem; color: rgba(255,255,255,0.82); line-height: 1.7;
+  margin-bottom: 36px; max-width: 480px;
+}
+.hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-wsp {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #25D366; color: var(--blanco);
+  font-family: var(--font-label); font-size: 0.88rem; font-weight: 600;
+  padding: 14px 28px; border-radius: 8px; border: none; cursor: pointer;
+  transition: var(--transition); box-shadow: 0 4px 16px rgba(37,211,102,0.3);
+}
+.btn-wsp:hover { background: #1ebe5d; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.4); }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: transparent; color: var(--blanco);
+  font-family: var(--font-label); font-size: 0.88rem; font-weight: 600;
+  padding: 14px 28px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.5);
+  cursor: pointer; transition: var(--transition);
+}
+.btn-outline:hover { background: rgba(255,255,255,0.1); border-color: var(--blanco); transform: translateY(-2px); }
+
+.hero-stats {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 16px;
+  margin-top: 48px;
+}
+.stat-card {
+  background: rgba(255,255,255,0.09); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.14); border-radius: var(--radius);
+  padding: 20px 16px; text-align: center;
+  transition: var(--transition);
+}
+.stat-card:hover { background: rgba(255,255,255,0.15); transform: translateY(-4px); }
+.stat-number { font-family: var(--font-display); font-size: 2.2rem; color: var(--verde-claro); font-weight: 700; line-height: 1; }
+.stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.7); margin-top: 6px; letter-spacing: 0.04em; }
+
+.hero-image-col { display: flex; flex-direction: column; gap: 16px; }
+.hero-img-card {
+  border-radius: var(--radius-lg); overflow: hidden; position: relative;
+  height: 220px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+}
+.hero-img-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.hero-img-card:hover img { transform: scale(1.04); }
+.hero-img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.hero-img-grid .hero-img-card { height: 160px; }
+
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 120px 20px 60px; }
+  .hero-image-col { display: none; }
+  .hero-stats { grid-template-columns: repeat(3,1fr); }
+}
+@media (max-width: 480px) {
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .hero-stats .stat-card:last-child { grid-column: 1/-1; }
+}
+
+/* ===== SECTION COMMONS ===== */
+.section { padding: 90px 24px; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-label {
+  font-family: var(--font-label); font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--verde-medio);
+  margin-bottom: 10px; display: block;
+}
+.section-title {
+  font-family: var(--font-display); font-size: clamp(1.7rem, 3vw, 2.6rem);
+  font-weight: 700; color: var(--verde-profundo); line-height: 1.2;
+  margin-bottom: 16px;
+}
+.section-title span { color: var(--verde-medio); }
+.section-desc { font-size: 1.05rem; color: #5a6a5d; line-height: 1.7; max-width: 560px; }
+.section-header { margin-bottom: 52px; }
+.section-header.center { text-align: center; }
+.section-header.center .section-desc { margin: 0 auto; }
+
+/* ===== DIVIDER ===== */
+.divider {
+  width: 48px; height: 3px; background: var(--tierra);
+  border-radius: 2px; margin: 14px 0 0;
+}
+.section-header.center .divider { margin: 14px auto 0; }
+
+/* ===== SERVICIOS ===== */
+#servicios { background: var(--crema); }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.service-card {
+  background: var(--blanco); border-radius: var(--radius-lg);
+  padding: 36px 28px; border: 1px solid rgba(26,58,31,0.07);
+  transition: var(--transition);
+  position: relative; overflow: hidden;
+}
+.service-card::before {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--verde-medio), var(--verde-vivo));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.35s ease;
+}
+.service-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px var(--sombra); }
+.service-card:hover::before { transform: scaleX(1); }
+.service-icon {
+  width: 60px; height: 60px; background: linear-gradient(135deg, var(--verde-profundo), var(--verde-medio));
+  border-radius: 14px; display: flex; align-items: center; justify-content: center;
+  margin-bottom: 22px;
+}
+.service-icon svg { width: 28px; height: 28px; fill: none; stroke: var(--blanco); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.service-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--verde-profundo); margin-bottom: 10px; }
+.service-desc { font-size: 0.9rem; color: #5a6a5d; line-height: 1.65; }
+
+@media (max-width: 900px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .services-grid { grid-template-columns: 1fr; } }
+
+/* ===== BENEFICIOS ===== */
+#beneficios {
+  background: linear-gradient(135deg, var(--verde-profundo) 0%, var(--verde-medio) 100%);
+  position: relative; overflow: hidden;
+}
+#beneficios::before {
+  content: ''; position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+#beneficios .section-label { color: var(--verde-claro); }
+#beneficios .section-title { color: var(--blanco); }
+#beneficios .section-desc { color: rgba(255,255,255,0.75); }
+.benefits-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 20px; }
+.benefit-card {
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-lg); padding: 32px 20px; text-align: center;
+  backdrop-filter: blur(6px); transition: var(--transition);
+}
+.benefit-card:hover { background: rgba(255,255,255,0.13); transform: translateY(-4px); }
+.benefit-icon { font-size: 2.4rem; margin-bottom: 14px; }
+.benefit-title { font-family: var(--font-label); font-size: 0.9rem; font-weight: 600; color: var(--blanco); margin-bottom: 8px; line-height: 1.3; }
+.benefit-desc { font-size: 0.8rem; color: rgba(255,255,255,0.65); line-height: 1.55; }
+
+@media (max-width: 1000px) { .benefits-grid { grid-template-columns: repeat(3,1fr); } }
+@media (max-width: 600px) { .benefits-grid { grid-template-columns: repeat(2,1fr); } }
+
+/* ===== SOBRE NOSOTROS ===== */
+#nosotros { background: var(--blanco); }
+.nosotros-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.nosotros-media { position: relative; }
+.nosotros-img-main { border-radius: var(--radius-lg); overflow: hidden; height: 420px; box-shadow: 0 16px 48px var(--sombra); }
+.nosotros-img-main img { width: 100%; height: 100%; object-fit: cover; }
+.nosotros-img-accent {
+  position: absolute; bottom: -24px; right: -24px;
+  width: 180px; border-radius: var(--radius); overflow: hidden;
+  height: 140px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  border: 4px solid var(--blanco);
+}
+.nosotros-img-accent img { width: 100%; height: 100%; object-fit: cover; }
+.expertise-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.tag {
+  font-family: var(--font-label); font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 7px 14px; border-radius: 20px;
+  background: rgba(45,106,53,0.1); color: var(--verde-medio);
+  border: 1px solid rgba(45,106,53,0.2);
+}
+.team-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-top: 28px; }
+.team-item {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--gris-suave); border-radius: 10px; padding: 14px;
+}
+.team-avatar {
+  width: 48px; height: 48px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--verde-medio), var(--verde-vivo));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--blanco);
+}
+.team-info .name { font-family: var(--font-label); font-size: 0.82rem; font-weight: 600; color: var(--verde-profundo); }
+.team-info .role { font-size: 0.75rem; color: #7a8a7d; margin-top: 2px; }
+
+@media (max-width: 900px) {
+  .nosotros-inner { grid-template-columns: 1fr; gap: 40px; }
+  .nosotros-img-accent { right: 0; bottom: -16px; width: 140px; height: 110px; }
+}
+
+/* ===== CONTACTO ===== */
+#contacto { background: var(--crema); }
+.contacto-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 56px; align-items: start; }
+.contacto-info h3 { font-family: var(--font-display); font-size: 1.4rem; color: var(--verde-profundo); margin-bottom: 20px; }
+.contact-methods { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+.contact-method {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--blanco); border-radius: var(--radius); padding: 16px 18px;
+  border: 1px solid rgba(26,58,31,0.08); transition: var(--transition); cursor: pointer;
+}
+.contact-method:hover { border-color: var(--verde-vivo); transform: translateX(4px); box-shadow: 0 4px 16px var(--sombra); }
+.method-icon {
+  width: 44px; height: 44px; border-radius: 10px; display: flex;
+  align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.2rem;
+}
+.method-icon.wsp { background: rgba(37,211,102,0.12); }
+.method-icon.tel { background: rgba(45,106,53,0.12); }
+.method-icon.mail { background: rgba(160,120,64,0.12); }
+.method-label { font-size: 0.75rem; color: #8a9a8d; margin-bottom: 2px; font-family: var(--font-label); letter-spacing: 0.04em; text-transform: uppercase; }
+.method-value { font-size: 0.92rem; font-weight: 600; color: var(--verde-profundo); }
+
+/* FORM */
+.contact-form {
+  background: var(--blanco); border-radius: var(--radius-lg); padding: 40px 36px;
+  box-shadow: 0 4px 32px var(--sombra);
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group.full { grid-column: 1/-1; }
+.form-group label {
+  font-family: var(--font-label); font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--verde-profundo);
+}
+.form-group input, .form-group select, .form-group textarea {
+  padding: 12px 14px; border-radius: 8px;
+  border: 1.5px solid rgba(26,58,31,0.12); background: var(--gris-suave);
+  font-family: var(--font-body); font-size: 0.92rem; color: var(--gris-texto);
+  transition: border-color 0.2s, background 0.2s; outline: none;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: var(--verde-vivo); background: var(--blanco);
+  box-shadow: 0 0 0 3px rgba(74,156,84,0.12);
+}
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-group select { cursor: pointer; }
+.btn-submit {
+  margin-top: 24px; width: 100%; padding: 16px;
+  background: linear-gradient(135deg, var(--verde-profundo), var(--verde-medio));
+  color: var(--blanco); font-family: var(--font-label); font-size: 0.9rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  border: none; border-radius: 8px; cursor: pointer; transition: var(--transition);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--sombra-fuerte); opacity: 0.9; }
+
+@media (max-width: 900px) {
+  .contacto-grid { grid-template-columns: 1fr; gap: 32px; }
+  .contact-form { padding: 28px 20px; }
+}
+@media (max-width: 560px) { .form-grid { grid-template-columns: 1fr; } }
+
+/* ===== TESTIMONIOS ===== */
+#testimonios { background: var(--blanco); }
+.testimonios-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.testimonio-card {
+  background: var(--crema); border-radius: var(--radius-lg); padding: 32px 28px;
+  border: 1px solid rgba(26,58,31,0.07); position: relative; transition: var(--transition);
+}
+.testimonio-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px var(--sombra); }
+.quote-icon { font-size: 3rem; color: var(--verde-claro); line-height: 1; margin-bottom: 14px; font-family: Georgia, serif; }
+.testimonio-text { font-size: 0.93rem; color: #4a5a4d; line-height: 1.7; margin-bottom: 22px; font-style: italic; }
+.testimonio-author { display: flex; align-items: center; gap: 12px; }
+.author-avatar {
+  width: 46px; height: 46px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--verde-profundo), var(--verde-vivo));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 700; color: var(--blanco); font-size: 1rem;
+  flex-shrink: 0;
+}
+.author-name { font-family: var(--font-label); font-size: 0.85rem; font-weight: 600; color: var(--verde-profundo); }
+.author-detail { font-size: 0.77rem; color: #7a8a7d; margin-top: 2px; }
+.stars { color: var(--tierra); font-size: 0.85rem; margin-bottom: 4px; }
+
+@media (max-width: 900px) { .testimonios-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 560px) { .testimonios-grid { grid-template-columns: 1fr; } }
+
+/* ===== COBERTURA ===== */
+#cobertura { background: var(--gris-suave); }
+.cobertura-inner { display: grid; grid-template-columns: 1fr 1.6fr; gap: 56px; align-items: start; }
+.comunas-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.comuna-tag {
+  font-size: 0.77rem; font-family: var(--font-label); font-weight: 500;
+  padding: 5px 12px; border-radius: 20px;
+  background: var(--blanco); color: var(--verde-profundo);
+  border: 1px solid rgba(45,106,53,0.2); transition: var(--transition); cursor: default;
+}
+.comuna-tag:hover { background: var(--verde-profundo); color: var(--blanco); }
+.cobertura-highlight {
+  background: linear-gradient(135deg, var(--verde-profundo), var(--verde-medio));
+  border-radius: var(--radius-lg); padding: 36px; color: var(--blanco); margin-top: 24px;
+}
+.cobertura-highlight h4 { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 12px; }
+.cobertura-highlight p { font-size: 0.9rem; opacity: 0.85; line-height: 1.6; }
+
+@media (max-width: 900px) { .cobertura-inner { grid-template-columns: 1fr; gap: 32px; } }
+
+/* ===== MAPA ===== */
+#mapa { padding: 0; }
+.map-wrapper { position: relative; height: 420px; }
+.map-wrapper iframe { width: 100%; height: 100%; border: none; filter: saturate(0.8) brightness(0.97); }
+.map-overlay {
+  position: absolute; top: 24px; left: 24px;
+  background: var(--blanco); border-radius: var(--radius); padding: 16px 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  font-family: var(--font-label); font-size: 0.8rem;
+}
+.map-overlay strong { display: block; color: var(--verde-profundo); font-size: 0.9rem; margin-bottom: 4px; }
+.map-overlay span { color: #7a8a7d; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--verde-profundo);
+  color: rgba(255,255,255,0.8);
+  padding: 64px 24px 32px;
+}
+.footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 40px; }
+.footer-brand .logo-name { font-size: 1.3rem; color: var(--blanco); }
+.footer-brand p { font-size: 0.87rem; line-height: 1.65; margin: 14px 0 20px; color: rgba(255,255,255,0.65); }
+.social-links { display: flex; gap: 10px; }
+.social-link {
+  width: 38px; height: 38px; border-radius: 8px;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; transition: var(--transition); cursor: pointer;
+}
+.social-link:hover { background: var(--verde-vivo); border-color: var(--verde-vivo); transform: translateY(-2px); }
+.footer-col h5 { font-family: var(--font-label); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--verde-claro); margin-bottom: 16px; }
+.footer-col ul li { margin-bottom: 8px; }
+.footer-col ul li a { font-size: 0.87rem; color: rgba(255,255,255,0.7); transition: color 0.2s; }
+.footer-col ul li a:hover { color: var(--verde-claro); }
+.footer-contact-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 0.85rem; }
+.footer-contact-item .icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+.footer-contact-item span { color: rgba(255,255,255,0.7); line-height: 1.45; }
+.footer-bottom {
+  max-width: 1200px; margin: 48px auto 0;
+  padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+}
+.footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.45); }
+.tierra-line { color: var(--tierra-claro); }
+
+@media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; text-align: center; } }
+
+/* ===== FLOATING WHATSAPP ===== */
+.float-wsp {
+  position: fixed; bottom: 28px; right: 28px; z-index: 999;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #25D366; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 24px rgba(37,211,102,0.5); cursor: pointer;
+  transition: var(--transition); border: none; font-size: 1.6rem;
+  animation: pulse-wsp 2.5s infinite;
+}
+.float-wsp:hover { transform: scale(1.1); background: #1ebe5d; box-shadow: 0 10px 32px rgba(37,211,102,0.6); }
+@keyframes pulse-wsp {
+  0%, 100% { box-shadow: 0 6px 24px rgba(37,211,102,0.5); }
+  50% { box-shadow: 0 6px 32px rgba(37,211,102,0.8), 0 0 0 10px rgba(37,211,102,0.08); }
+}
+
+/* ===== SCROLL ANIMATIONS ===== */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed; bottom: 100px; right: 28px; z-index: 9999;
+  background: var(--verde-profundo); color: var(--blanco);
+  padding: 14px 22px; border-radius: var(--radius); font-size: 0.88rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+  display: flex; align-items: center; gap: 10px; max-width: 280px;
+}
+.toast.show { transform: translateX(0); }
+</style>
 </head>
 <body>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700;900&display=swap');
-*{box-sizing:border-box;margin:0;padding:0;}
-.R{font-family:'Lato',sans-serif;background:#f7f3eb;color:#1e1e14;}
 
-.hero{background:linear-gradient(160deg,#1a3a1a 0%,#2d5a2d 60%,#1e4a1e 100%);padding:2.5rem 1.2rem 2rem;text-align:center;position:relative;overflow:hidden;}
-.hero-bg{position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(168,216,104,.03) 0,rgba(168,216,104,.03) 1px,transparent 1px,transparent 28px);}
-.hbadge{display:inline-flex;align-items:center;gap:6px;background:rgba(168,216,104,.15);border:1px solid rgba(168,216,104,.3);color:#a8d868;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:1rem;position:relative;}
-.hero h1{font-family:'Playfair Display',serif;font-size:2.4rem;color:#f0ead6;line-height:1.15;margin-bottom:.3rem;position:relative;}
-.hero h1 em{color:#a8d868;font-style:normal;display:block;}
-.hero .sub{font-size:11px;color:rgba(200,220,160,.65);letter-spacing:2px;text-transform:uppercase;margin-bottom:1.4rem;position:relative;}
-.hero-chips{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;position:relative;margin-bottom:1.4rem;}
-.hchip{background:rgba(255,255,255,.07);border:1px solid rgba(168,216,104,.2);color:rgba(200,230,160,.85);font-size:11px;padding:4px 11px;border-radius:20px;display:flex;align-items:center;gap:4px;}
-.hchip i{font-size:13px;color:#a8d868;}
-.hero-cta{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#fff;font-size:14px;font-weight:700;padding:12px 28px;border-radius:30px;border:none;cursor:pointer;font-family:'Lato',sans-serif;text-decoration:none;box-shadow:0 4px 18px rgba(37,211,102,.45);}
-.hero-cta i{font-size:19px;}
+<!-- HEADER -->
+<header id="header">
+  <div class="header-inner">
+    <a href="#hero" class="logo" aria-label="AgroIntegra Consultores – inicio">
+      <svg class="logo-svg" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M22 6L36 36H8L22 6Z" fill="#4a9c54"/>
+        <path d="M22 6L36 36H8L22 6Z" fill="url(#logoGrad)" opacity="0.7"/>
+        <path d="M14 32 Q22 22 30 32" stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M11 36 Q22 24 33 36" stroke="#8cc994" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="17" cy="20" rx="4" ry="6" fill="#2d6a35" transform="rotate(-20 17 20)"/>
+        <ellipse cx="27" cy="20" rx="4" ry="6" fill="#1a3a1f" transform="rotate(20 27 20)"/>
+        <defs>
+          <linearGradient id="logoGrad" x1="8" y1="6" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#2d6a35"/>
+            <stop offset="100%" stop-color="#1a3a1f"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="logo-text">
+        <span class="logo-name">AgroIntegra</span>
+        <span class="logo-sub">Consultores</span>
+      </div>
+    </a>
 
-.stats-bar{background:#fff;border-bottom:2px solid #e8e0cc;padding:1.1rem 1.2rem;}
-.stats-g{display:grid;grid-template-columns:repeat(4,1fr);max-width:720px;margin:0 auto;text-align:center;}
-.stat{padding:.4rem 0;border-right:1px solid #e8e0cc;}
-.stat:last-child{border-right:none;}
-.stat-n{font-family:'Playfair Display',serif;font-size:1.8rem;color:#1e6b14;line-height:1;}
-.stat-l{font-size:10px;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
-
-.enav{background:#038155aa;padding:.75rem 1rem;}
-.enav-inner{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;max-width:720px;margin:0 auto;}
-.etab{padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.7);font-size:12px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;display:inline-flex;align-items:center;gap:4px;}
-.etab i{font-size:13px;}
-.etab.on,.etab:hover{background:rgba(255,255,255,.18);color:#fff;border-color:rgba(255,255,255,.5);}
-
-.esect{background:#ffffff00;border-bottom:2px solid #e8e0cc;}
-.econt{padding:1.5rem 1.2rem;max-width:720px;margin:0 auto;}
-.epanel{display:none;} .epanel.on{display:block;}
-.ep-hdr{display:flex;align-items:center;gap:14px;margin-bottom:1.3rem;padding-bottom:1rem;border-bottom:2px solid #f0ead0;}
-.ep-ico{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.ep-ico i{font-size:27px;}
-.ep-ico.v{background:#000000;} .ep-ico.v i{color:#1e6b14;}
-.ep-ico.a{background:#daeef8;} .ep-ico.a i{color:#1565a0;}
-.ep-ico.c{background:#f5ecd4;} .ep-ico.c i{color:#7a4f1a;}
-.ep-title{font-family:'Playfair Display',serif;font-size:1.35rem;color:#1a2e1a;margin-bottom:2px;}
-.ep-sub{font-size:12px;color:#8a8a60;}
-.ep-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.2rem;}
-.epc{background:#fafaf4;border:1px solid #ddd8c0;border-radius:12px;padding:1rem;}
-.epc-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:.7rem;}
-.epc-ico i{font-size:17px;}
-.epc-ico.v{background:#e6f4d4;} .epc-ico.v i{color:#1e6b14;}
-.epc-ico.a{background:#daeef8;} .epc-ico.a i{color:#1565a0;}
-.epc-ico.c{background:#f5ecd4;} .epc-ico.c i{color:#7a4f1a;}
-.epc h4{font-size:13px;font-weight:700;color:#1a2e1a;margin-bottom:.3rem;}
-.epc p{font-size:12px;color:#5a5a38;line-height:1.5;}
-.epc ul{list-style:none;margin-top:.5rem;}
-.epc ul li{font-size:11px;color:#4a4a28;padding:2px 0;display:flex;align-items:flex-start;gap:5px;line-height:1.4;}
-.epc ul li i{font-size:12px;color:#1e6b14;margin-top:1px;flex-shrink:0;}
-.ep-tip{background:#f2ff00;border-left:4px solid #4a9a1e;border-radius:0 11px 11px 0;padding:.9rem 1rem;display:flex;gap:9px;align-items:flex-start;}
-.ep-tip i{font-size:18px;color:#000000;flex-shrink:0;margin-top:1px;}
-.ep-tip p{font-size:12px;color:#2a4a14;line-height:1.55;}
-
-.proj-sect{background:#1a3a1a;padding:2rem 1.2rem;}
-.sdt{font-family:'Playfair Display',serif;font-size:1.4rem;color:#c8e8a8;text-align:center;margin-bottom:.3rem;}
-.sds{text-align:center;font-size:12px;color:rgba(180,220,140,.5);margin-bottom:1.4rem;}
-.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:720px;margin:0 auto;}
-.pjc{background:rgba(255,255,255,.06);border:1px solid rgba(168,216,104,.15);border-radius:12px;padding:1rem;}
-.pjt{display:flex;align-items:center;gap:9px;margin-bottom:.8rem;}
-.pji{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.pji i{font-size:19px;}
-.pji.g{background:rgba(168,216,104,.15);} .pji.g i{color:#a8d868;}
-.pji.b{background:rgba(100,180,240,.12);} .pji.b i{color:#70c0f0;}
-.pji.p{background:rgba(200,160,240,.12);} .pji.p i{color:#c8a0e8;}
-.pji.o{background:rgba(240,180,80,.12);} .pji.o i{color:#f0c060;}
-.ptag{font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:6px;display:inline-block;margin-bottom:3px;}
-.ptag.g{background:rgba(168,216,104,.15);color:#a8d868;border:1px solid rgba(168,216,104,.25);}
-.ptag.b{background:rgba(100,180,240,.1);color:#70c0f0;border:1px solid rgba(100,180,240,.2);}
-.ptag.p{background:rgba(200,160,240,.1);color:#c8a0e8;border:1px solid rgba(200,160,240,.2);}
-.ptag.o{background:rgba(240,180,80,.1);color:#f0c060;border:1px solid rgba(240,180,80,.2);}
-.pjc h4{font-size:13px;font-weight:700;color:#d8f0a8;margin-bottom:3px;}
-.pjdate{font-size:11px;color:rgba(168,216,104,.6);margin-bottom:.6rem;display:flex;align-items:center;gap:4px;}
-.pjdate i{font-size:11px;}
-.pjc p{font-size:12px;color:rgba(220,240,180,.75);line-height:1.5;}
-.pjpts{list-style:none;margin-top:.5rem;}
-.pjpts li{font-size:11px;color:rgba(200,230,160,.7);padding:2px 0;display:flex;align-items:flex-start;gap:5px;line-height:1.4;}
-.pjpts li i{font-size:12px;color:#a8d868;margin-top:1px;flex-shrink:0;}
-
-.testi-sect{background:#f7f3eb;padding:2rem 1.2rem;}
-.st{font-family:'Playfair Display',serif;font-size:1.4rem;color:#1a3a1a;text-align:center;margin-bottom:.3rem;}
-.ss{text-align:center;font-size:12px;color:#8a8a68;margin-bottom:1.4rem;}
-.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:720px;margin:0 auto;}
-.tc{background:#fff;border:1px solid #ddd8c0;border-radius:12px;padding:1.1rem;}
-.tc-top{display:flex;align-items:center;gap:10px;margin-bottom:.8rem;}
-.tc-ico{width:42px;height:42px;border-radius:50%;background:#e6f4d4;border:2px solid #b8d878;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.tc-ico i{font-size:21px;color:#000000;}
-.tc-name{font-size:13px;font-weight:700;color:#1a2e1a;}
-.tc-role{font-size:11px;color:#9a9a70;margin-top:1px;}
-.stars{display:flex;gap:2px;margin-bottom:.6rem;}
-.stars i{font-size:13px;color:#d4a820;}
-.tc-q{font-size:12px;color:#4a4a30;line-height:1.6;font-style:italic;padding-left:12px;border-left:3px solid #b8d878;}
-.tc-tag{display:inline-flex;align-items:center;gap:4px;margin-top:.7rem;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:7px;background:#e6f4d4;border:1px solid #b0d070;color:#2a5a10;}
-.tc-tag i{font-size:11px;}
-
-.plans-sect{background:#1a1a0a;padding:2rem 1.2rem;}
-
-.ofbanner{background:linear-gradient(135deg,#c0392b,#e74c3c,#c0392b);border-radius:13px;padding:.9rem 1.1rem;max-width:720px;margin:0 auto 1.4rem;display:flex;align-items:center;gap:10px;animation:pr 2.2s ease-in-out infinite;}
-@keyframes pr{0%,100%{box-shadow:0 4px 16px rgba(192,57,43,.4);}50%{box-shadow:0 6px 26px rgba(192,57,43,.7);}}
-.ofbanner i.fire{font-size:26px;color:#fff176;flex-shrink:0;}
-.ofbanner .obt strong{display:block;font-size:13px;font-weight:900;color:#fff;}
-.ofbanner .obt span{font-size:11px;color:rgba(255,255,255,.85);}
-.ofbanner .obb{margin-left:auto;background:#fff176;color:#7a2800;font-size:11px;font-weight:900;padding:4px 11px;border-radius:18px;white-space:nowrap;flex-shrink:0;}
-
-.ptabs{display:flex;gap:7px;justify-content:center;margin-bottom:1.4rem;flex-wrap:wrap;}
-.ptb{padding:8px 18px;border-radius:22px;border:2px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.65);font-size:13px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;display:inline-flex;align-items:center;gap:5px;}
-.ptb i{font-size:14px;}
-.ptb.on{background:rgba(255,215,0,.18);color:#ffd700;border-color:#ffd700;}
-.ptb:hover:not(.on){background:rgba(255,255,255,.07);}
-.pgrp{display:none;}
-.pgrp.on{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:720px;margin:0 auto;}
-
-.plan{background:#fff;border:2px solid #d0e8b0;border-radius:17px;padding:1.4rem 1.2rem;position:relative;overflow:hidden;}
-.plan::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:#1e9a30;}
-.plan.feat{border:2px solid #f59e0b;background:#fffbf0;}
-.plan.feat::after{background:linear-gradient(90deg,#f59e0b,#ef4444,#f59e0b);background-size:200%;animation:sm 2s linear infinite;}
-.plan.oferta{border:2px solid #e53e3e;background:#fff8f8;}
-.plan.oferta::after{background:linear-gradient(90deg,#e53e3e,#f59e0b,#e53e3e);background-size:200%;animation:sm 1.8s linear infinite;}
-@keyframes sm{0%{background-position:0%;}100%{background-position:200%;}}
-
-.pbadge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:900;padding:4px 14px;border-radius:0 0 11px 11px;white-space:nowrap;z-index:2;}
-.pbadge.am{background:linear-gradient(90deg,#f59e0b,#fbbf24);color:#7a3800;}
-.pbadge.ro{background:linear-gradient(90deg,#e53e3e,#fc8181);color:#fff;}
-
-.picon{width:42px;height:42px;border-radius:12px;background:#e6f4d4;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem;}
-.picon i{font-size:21px;color:#1e6b14;}
-.plan.feat .picon{background:#fef3c7;} .plan.feat .picon i{color:#b45309;}
-.plan.oferta .picon{background:#fff5f5;} .plan.oferta .picon i{color:#c53030;}
-
-.plan h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:#1a2e1a;margin-bottom:.3rem;}
-.ptach{font-size:12px;color:#000000;text-decoration:line-through;margin-bottom:2px;}
-.pdesc-badge{display:inline-block;background:#e53e3e;color:#fff;font-size:9px;font-weight:900;padding:2px 7px;border-radius:9px;margin-left:5px;vertical-align:middle;}
-.price-row{display:flex;align-items:baseline;gap:1px;margin-bottom:.3rem;}
-.pm{font-size:2rem;font-weight:900;color:#1e6b14;font-family:'Lato',sans-serif;line-height:1;}
-.pc{font-size:1.1rem;font-weight:700;color:#1e6b14;}
-.pp{font-size:11px;color:#9a9a70;margin-left:3px;}
-.plan.feat .pm,.plan.feat .pc{color:#b45309;}
-.plan.oferta .pm,.plan.oferta .pc{color:#c53030;}
-
-.pdesc{font-size:12px;color:#6a6a40;margin-bottom:.9rem;line-height:1.5;}
-.feats{list-style:none;margin-bottom:1.1rem;}
-.feats li{font-size:12px;color:#3a3a20;padding:3px 0;display:flex;align-items:flex-start;gap:6px;line-height:1.4;}
-.feats li i{font-size:13px;color:#1e7a14;margin-top:1px;flex-shrink:0;}
-.plan.feat .feats li i{color:#d97706;}
-.plan.oferta .feats li i{color:#e53e3e;}
-
-.success-section{background:#f0f7e8;padding:2rem 1.2rem;border-top:2px solid #d0e8b0;}
-.success-section .proj-grid .pjc{background:#fff;border:1px solid #c8e0a0;}
-.success-section .proj-grid .pjc h4{color:#1a2e1a;}
-.success-section .proj-grid .pjc p{color:#4a5a30;}
-.success-section .proj-grid .pjdate{color:#5a7a30;}
-.success-section .proj-grid .pjpts li{color:#3a4a20;}
-.success-section .proj-grid .pjpts li i{color:#1e7a14;}
-.hatag{display:inline-flex;align-items:center;gap:4px;background:#fef9e6;border:1px solid #e0b030;border-radius:7px;padding:3px 10px;font-size:11px;color:#7a5010;margin-bottom:.8rem;}
-.hatag i{font-size:13px;color:#c08010;}
-
-.bwp{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:12px;border-radius:11px;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;text-decoration:none;}
-.bwp i{font-size:17px;}
-.bwp.verde{background:#19db60;color:#fff;box-shadow:0 3px 10px rgba(37,211,102,.35);}
-.bwp.amarillo{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#7a3800;box-shadow:0 3px 10px rgba(245,158,11,.35);}
-.bwp.rojo{background:linear-gradient(135deg,#e53e3e,#fc8181);color:#fff;box-shadow:0 3px 10px rgba(229,62,62,.4);}
-.bwp.outline{background:transparent;border:2px solid #25d366;color:#1e9a30;}
-
-.pnote{background:rgba(255,255,255,.06);border:1px solid rgba(255,215,0,.2);border-radius:12px;padding:1rem 1.2rem;margin-top:1.2rem;max-width:720px;margin-left:auto;margin-right:auto;}
-.pnote h4{font-size:12px;color:#ffd700;font-weight:700;margin-bottom:9px;display:flex;align-items:center;gap:5px;}
-.pnote h4 i{font-size:15px;}
-.prows{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
-.prow{background:rgba(255,255,255,.05);border:1px solid rgba(255,215,0,.15);border-radius:8px;padding:8px 11px;display:flex;justify-content:space-between;align-items:center;}
-.prow .lbl{font-size:11px;color:rgba(255,255,255,.5);}
-.prow .val{font-size:12px;font-weight:700;color:#ffd700;}
-.prow.or{background:rgba(229,62,62,.1);border-color:rgba(229,62,62,.3);}
-.prow.or .val{color:#fc8181;}
-
-.cbox{background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.22);border-radius:12px;padding:1rem 1.2rem;display:flex;gap:12px;align-items:flex-start;margin-top:.8rem;max-width:720px;margin-left:auto;margin-right:auto;}
-.cbox .big{font-size:22px;color:#ffd700;flex-shrink:0;margin-top:2px;}
-.cbox .ct{font-size:13px;color:#ffd700;font-weight:700;margin-bottom:3px;}
-.cbox .cd{font-size:12px;color:rgba(255,255,255,.65);line-height:1.5;}
-.ctalink{display:inline-flex;align-items:center;gap:5px;margin-top:8px;background:transparent;border:none;padding:0;cursor:pointer;font-size:12px;color:#25d366;font-weight:700;font-family:'Lato',sans-serif;text-decoration:none;}
-.ctalink i{font-size:15px;}
-
-.fab{position:fixed;bottom:20px;right:20px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.55);cursor:pointer;z-index:999;text-decoration:none;animation:fabb 2.5s ease-in-out infinite;}
-.fab i{font-size:30px;color:#fff;}
-.fab:hover{animation:none;transform:scale(1.1);}
-@keyframes fabb{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
-
-footer{background:#0d1f0d;padding:1.4rem 1.2rem;text-align:center;}
-footer p{font-size:12px;color:rgba(168,216,104,.4);}
-footer a{color:rgba(168,216,104,.6);text-decoration:none;}
-
-@media(max-width:520px){
-  .hero h1{font-size:1.8rem;}
-  .stats-g{grid-template-columns:repeat(2,1fr);}
-  .stat:nth-child(2){border-right:none;}
-  .ep-grid,.pgrp.on,.proj-grid,.tgrid,.prows{grid-template-columns:1fr;}
-  .ofbanner{flex-wrap:wrap;}
-}
-</style>
-
-<div class="R">
-
-<a class="fab" href="https://wa.me/56971505118?text=Hola%20José%2C%20vi%20su%20página%20y%20me%20interesa%20recibir%20asesoría%20agrícola.%20¿Podría%20darme%20más%20información%20sobre%20sus%20planes%3F" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i></a>
-
-<div class="hero">
-  <div class="hero-bg"></div>
-  <div class="hbadge"><i class="ti ti-award" aria-hidden="true"></i> Ingeniero Agrícola Certificado, Region de Valparaíso </div>
-  <h1>AgroIntegra Consultores <em>Asesoría Agrícola Profesional</em></h1>
-  <p class="sub">Cultivando eficiencia , Cosechando resultados</p>
-  <div class="hero-chips">
-    <div class="hchip"><i class="ti ti-droplet-half-2" aria-hidden="true"></i> Riego tecnificado</div>
-    <div class="hchip"><i class="ti ti-trees" aria-hidden="true"></i> Frutales</div>
-    <div class="hchip"><i class="ti ti-seeding" aria-hidden="true"></i> Suelos</div>
-    <div class="hchip"><i class="ti ti-microscope" aria-hidden="true"></i> FONDECYT</div>
+    <nav id="nav" role="navigation" aria-label="Menú principal">
+      <a href="#servicios">Servicios</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#cobertura">Cobertura</a>
+      <a href="#contacto" class="btn-header">Solicitar Asesoría</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-<a class="hero-cta" href="https://wa.me/56971505118?text=Hola%20José%2C%20me%20interesa%20recibir%20asesoría%20agrícola.%20¿Puede%20contarme%20sobre%20sus%20servicios%3F" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Consultar por WhatsApp</a>
+</header>
+
+<!-- HERO -->
+<section id="hero" aria-label="Presentación principal">
+  <div class="hero-bg" role="img" aria-label="Campo agrícola al amanecer"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">Región de Valparaíso, Chile</div>
+      <h1 class="hero-title">
+        Soluciones Agronómicas para una Agricultura <em>Más Rentable</em> y Sustentable
+      </h1>
+      <p class="hero-desc">
+        Asesoría técnica profesional en fertilización, riego tecnificado, manejo de frutales y agricultura de precisión. Llevamos ciencia al campo.
+      </p>
+      <div class="hero-ctas">
+        <a href="https://wa.me/56907150511?text=Hola%2C%20solicito%20información%20sobre%20asesoría%20agrícola" target="_blank" rel="noopener" class="btn-wsp" aria-label="Contactar por WhatsApp">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Hablar por WhatsApp
+        </a>
+        <a href="#contacto" class="btn-outline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Solicitar Asesoría
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card reveal">
+          <div class="stat-number">+120</div>
+          <div class="stat-label">Productores asesorados</div>
+        </div>
+        <div class="stat-card reveal reveal-delay-1">
+          <div class="stat-number">+8.000</div>
+          <div class="stat-label">Hectáreas gestionadas</div>
+        </div>
+        <div class="stat-card reveal reveal-delay-2">
+          <div class="stat-number">+10</div>
+          <div class="stat-label">Años de experiencia</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-image-col" aria-hidden="true">
+      <div class="hero-img-card">
+        <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=700&q=75" alt="Riego tecnificado en cultivo frutal" loading="lazy">
+      </div>
+      <div class="hero-img-grid">
+        <div class="hero-img-card">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=500&q=75" alt="Asesoría en terreno" loading="lazy">
+        </div>
+        <div class="hero-img-card">
+          <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=500&q=75" alt="Cultivo de palto" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios" class="section" aria-label="Nuestros servicios">
+  <div class="section-inner">
+    <div class="section-header center">
+      <span class="section-label">Lo que hacemos</span>
+      <h2 class="section-title">Servicios <span>Agronómicos</span> Integrales</h2>
+      <div class="divider"></div>
+      <p class="section-desc" style="margin-top:16px">Soluciones técnicas especializadas para cada etapa del ciclo productivo, desde el análisis de suelos hasta la cosecha.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3 class="service-title">Fertilización y Nutrición Vegetal</h3>
+        <p class="service-desc">Planes de fertilización basados en análisis de suelo y foliar. Optimizamos el uso de nutrientes para maximizar el rendimiento y reducir costos.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22V12"/><path d="M5 12H2a10 10 0 0010 10"/><path d="M5.75 5.75A7 7 0 0112 3a7 7 0 016.25 3.25"/><path d="M22 12h-3a7 7 0 01-7 7"/><circle cx="12" cy="12" r="2"/></svg>
+        </div>
+        <h3 class="service-title">Diseño de Riego Tecnificado</h3>
+        <p class="service-desc">Diseño e instalación de sistemas de riego por goteo y microaspersión. Eficiencia hídrica comprobada para frutales y hortalizas.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22c0-5.5-4-10-4-10s4-4.5 4-10c0 5.5 4 4.5 4 10s-4 4.5-4 10z"/><path d="M8 12c-2.5 0-5-1-5-4s2.5-4 5-4"/><path d="M16 12c2.5 0 5-1 5-4s-2.5-4-5-4"/></svg>
+        </div>
+        <h3 class="service-title">Manejo de Frutales</h3>
+        <p class="service-desc">Poda, raleo, manejo de plagas y enfermedades. Especialistas en palto, vid, ciruelo, nogal y otros frutales de la zona central.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3 class="service-title">Agricultura de Precisión</h3>
+        <p class="service-desc">Uso de drones, sensores remotos y análisis de datos para tomar decisiones basadas en información real de cada sector del predio.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 3l7.07 16.97 2.51-7.39 7.45-2.63L3 3z"/><path d="M13 13l6 6"/></svg>
+        </div>
+        <h3 class="service-title">Análisis de Suelos</h3>
+        <p class="service-desc">Muestreo y análisis físico-químico completo. Interpretación de resultados y recomendaciones de enmiendas y correcciones.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3 class="service-title">Gestión Productiva</h3>
+        <p class="service-desc">Planificación de temporadas, estimación de costos, registros de cuaderno de campo y apoyo en certificaciones de calidad.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFICIOS -->
+<section id="beneficios" class="section" aria-label="Beneficios de trabajar con nosotros">
+  <div class="section-inner">
+    <div class="section-header center">
+      <span class="section-label">¿Por qué elegirnos?</span>
+      <h2 class="section-title" style="color:var(--blanco)">Resultados que <span style="color:var(--verde-claro)">se notan</span> en el campo</h2>
+      <div class="divider" style="background:var(--tierra-claro);margin:14px auto 0"></div>
+      <p class="section-desc" style="margin-top:16px;color:rgba(255,255,255,0.75)">Cada proyecto es único. Adaptamos nuestro servicio a la realidad de tu predio para obtener los mejores resultados.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">📈</div>
+        <div class="benefit-title">Mayor productividad</div>
+        <div class="benefit-desc">Incrementamos rendimientos entre 20% y 40% en las primeras temporadas con manejo técnico adecuado.</div>
+      </div>
+      <div class="benefit-card reveal reveal-delay-1">
+        <div class="benefit-icon">💧</div>
+        <div class="benefit-title">Optimización de recursos</div>
+        <div class="benefit-desc">Uso eficiente del agua y los fertilizantes, reduciendo insumos sin afectar la producción.</div>
+      </div>
+      <div class="benefit-card reveal reveal-delay-2">
+        <div class="benefit-icon">💰</div>
+        <div class="benefit-title">Reducción de costos</div>
+        <div class="benefit-desc">Diagnósticos precisos evitan gastos innecesarios en productos que no aportan valor al cultivo.</div>
+      </div>
+      <div class="benefit-card reveal reveal-delay-3">
+        <div class="benefit-icon">🎯</div>
+        <div class="benefit-title">Asesoría personalizada</div>
+        <div class="benefit-desc">Cada predio recibe un plan de manejo exclusivo, diseñado según su suelo, clima y objetivos.</div>
+      </div>
+      <div class="benefit-card reveal reveal-delay-4">
+        <div class="benefit-icon">📞</div>
+        <div class="benefit-title">Soporte técnico permanente</div>
+        <div class="benefit-desc">Contacto directo con tu agrónomo vía WhatsApp y visitas programadas a terreno.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE NOSOTROS -->
+<section id="nosotros" class="section" aria-label="Sobre AgroIntegra Consultores">
+  <div class="section-inner">
+    <div class="nosotros-inner">
+      <div class="nosotros-media reveal">
+        <div class="nosotros-img-main">
+          <img src="https://images.unsplash.com/photo-1595273670150-bd0c3c392e46?w=700&q=75" alt="Ingenieros agrícolas asesorando en terreno" loading="lazy">
+        </div>
+        <div class="nosotros-img-accent">
+          <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&q=75" alt="Análisis de cultivos" loading="lazy">
+        </div>
+      </div>
+      <div class="nosotros-content">
+        <span class="section-label">Sobre nosotros</span>
+        <h2 class="section-title">Ingenieros agrícolas <span>comprometidos</span> con tu campo</h2>
+        <div class="divider"></div>
+        <p style="margin-top:20px;line-height:1.75;color:#4a5a4d;font-size:0.97rem">
+          Somos un equipo de ingenieros agrónomos con más de 10 años de experiencia en la Región de Valparaíso. Nos especializamos en cultivos frutales y hortícolas de la zona central, combinando conocimiento técnico con un profundo respeto por el territorio y la sustentabilidad.
+        </p>
+        <p style="margin-top:14px;line-height:1.75;color:#4a5a4d;font-size:0.97rem">
+          Nuestra metodología integra análisis de datos, visitas frecuentes a terreno y comunicación directa con cada productor. Creemos que una agricultura rentable es, al mismo tiempo, una agricultura responsable.
+        </p>
+        <div class="expertise-tags reveal" style="margin-top:22px">
+          <span class="tag">Fruticultura</span>
+          <span class="tag">Horticultura</span>
+          <span class="tag">Viticultura</span>
+          <span class="tag">Riego tecnificado</span>
+          <span class="tag">Suelos</span>
+          <span class="tag">Sustentabilidad</span>
+        </div>
+        <div class="team-grid reveal" style="margin-top:28px">
+          <div class="team-item">
+            <div class="team-avatar">JF</div>
+            <div class="team-info">
+              <div class="name">José Ignacio Farías</div>
+              <div class="role">Ing. Agrónomo Jefe</div>
+            </div>
+          </div>
+          <div class="team-item">
+            <div class="team-avatar">CM</div>
+            <div class="team-info">
+              <div class="name">Catalina Morales</div>
+              <div class="role">Especialista en Suelos</div>
+            </div>
+          </div>
+          <div class="team-item">
+            <div class="team-avatar">AR</div>
+            <div class="team-info">
+              <div class="name">Andrés Rojas</div>
+              <div class="role">Ing. en Riego</div>
+            </div>
+          </div>
+          <div class="team-item">
+            <div class="team-avatar">SV</div>
+            <div class="team-info">
+              <div class="name">Sofía Valenzuela</div>
+              <div class="role">Agricultura de Precisión</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" class="section" aria-label="Formulario de contacto">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-label">Contáctanos</span>
+      <h2 class="section-title">Cuéntanos sobre <span>tu predio</span></h2>
+      <div class="divider"></div>
+      <p class="section-desc" style="margin-top:14px">Completa el formulario y recibirás respuesta dentro de 24 horas hábiles. También puedes contactarnos directamente.</p>
+    </div>
+    <div class="contacto-grid">
+      <div class="contacto-info">
+        <h3>Canales de contacto directo</h3>
+        <div class="contact-methods">
+          <a href="https://wa.me/56907150511" target="_blank" rel="noopener" class="contact-method" aria-label="WhatsApp">
+            <div class="method-icon wsp">💬</div>
+            <div>
+              <div class="method-label">WhatsApp</div>
+              <div class="method-value">+56 9 0715 0511</div>
+            </div>
+          </a>
+          <a href="tel:+56907150511" class="contact-method" aria-label="Teléfono">
+            <div class="method-icon tel">📱</div>
+            <div>
+              <div class="method-label">Teléfono</div>
+              <div class="method-value">+56 9 0715 0511</div>
+            </div>
+          </a>
+          <a href="mailto:contacto@agrointegra.cl" class="contact-method" aria-label="Correo electrónico">
+            <div class="method-icon mail">✉️</div>
+            <div>
+              <div class="method-label">Correo electrónico</div>
+              <div class="method-value">contacto@agrointegra.cl</div>
+            </div>
+          </a>
+        </div>
+        <div style="background:var(--gris-suave);border-radius:var(--radius);padding:20px;font-size:0.87rem;color:#5a6a5d;line-height:1.65;border-left:3px solid var(--verde-vivo)">
+          <strong style="color:var(--verde-profundo);display:block;margin-bottom:6px">Horario de atención</strong>
+          Lunes a viernes: 8:00 – 19:00 hrs<br>
+          Sábados: 9:00 – 13:00 hrs<br>
+          <em style="color:var(--verde-medio)">Urgencias en terreno: disponibilidad 7 días</em>
+        </div>
+      </div>
+
+      <div class="contact-form reveal">
+        <div style="margin-bottom:28px">
+          <h3 style="font-family:var(--font-display);font-size:1.25rem;color:var(--verde-profundo);margin-bottom:6px">Solicitud de asesoría</h3>
+          <p style="font-size:0.85rem;color:#7a8a7d">Al enviar, se abrirá WhatsApp con tu consulta lista para enviar.</p>
+        </div>
+        <form id="contactForm" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="nombre">Nombre completo *</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez González" required autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label for="telefono">Teléfono *</label>
+              <input type="tel" id="telefono" name="telefono" placeholder="+56 9 1234 5678" required autocomplete="tel">
+            </div>
+            <div class="form-group">
+              <label for="correo">Correo electrónico *</label>
+              <input type="email" id="correo" name="correo" placeholder="juan@ejemplo.cl" required autocomplete="email">
+            </div>
+            <div class="form-group">
+              <label for="comuna">Comuna *</label>
+              <select id="comuna" name="comuna" required>
+                <option value="">Seleccionar comuna</option>
+                <optgroup label="Provincia de Valparaíso">
+                  <option>Valparaíso</option><option>Viña del Mar</option><option>Casablanca</option><option>Juan Fernández</option><option>Quintero</option><option>Puchuncaví</option>
+                </optgroup>
+                <optgroup label="Provincia de San Antonio">
+                  <option>San Antonio</option><option>Cartagena</option><option>El Quisco</option><option>El Tabo</option><option>Santo Domingo</option><option>Algarrobo</option>
+                </optgroup>
+                <optgroup label="Provincia de San Felipe">
+                  <option>San Felipe</option><option>Catemu</option><option>Llay-Llay</option><option>Panquehue</option><option>Putaendo</option><option>Santa María</option>
+                </optgroup>
+                <optgroup label="Provincia de Los Andes">
+                  <option>Los Andes</option><option>Calle Larga</option><option>Rinconada</option><option>San Esteban</option>
+                </optgroup>
+                <optgroup label="Provincia de Quillota">
+                  <option>Quillota</option><option>Calera</option><option>Hijuelas</option><option>La Cruz</option><option>La Ligua</option><option>Nogales</option><option>Olmué</option>
+                </optgroup>
+                <optgroup label="Provincia de Petorca">
+                  <option>Petorca</option><option>Cabildo</option><option>Papudo</option><option>Zapallar</option><option>Puchuncaví</option>
+                </optgroup>
+                <optgroup label="Isla de Pascua">
+                  <option>Isla de Pascua</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cultivo">Tipo de cultivo *</label>
+              <select id="cultivo" name="cultivo" required>
+                <option value="">Seleccionar cultivo</option>
+                <option>Palto</option>
+                <option>Nogal</option>
+                <option>Vid de mesa</option>
+                <option>Vid vinifera</option>
+                <option>Ciruelo</option>
+                <option>Almendro</option>
+                <option>Naranjo / Limonero</option>
+                <option>Hortalizas</option>
+                <option>Cereales</option>
+                <option>Flores</option>
+                <option>Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="superficie">Superficie (ha) *</label>
+              <input type="number" id="superficie" name="superficie" placeholder="Ej: 5.5" min="0.1" step="0.1" required>
+            </div>
+            <div class="form-group full">
+              <label for="mensaje">Descripción de la consulta</label>
+              <textarea id="mensaje" name="mensaje" placeholder="Describa brevemente el estado actual del cultivo, problemas observados o la asesoría que necesita…"></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn-submit">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Enviar por WhatsApp
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section id="testimonios" class="section" aria-label="Testimonios de clientes">
+  <div class="section-inner">
+    <div class="section-header center">
+      <span class="section-label">Lo que dicen nuestros clientes</span>
+      <h2 class="section-title">Productores que <span>confían</span> en nosotros</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="testimonios-grid">
+      <div class="testimonio-card reveal">
+        <div class="quote-icon">"</div>
+        <div class="stars">★★★★★</div>
+        <p class="testimonio-text">Llevamos tres temporadas trabajando con AgroIntegra y los resultados han sido notables. El rendimiento de nuestro nogal aumentó un 35% gracias al plan de fertilización y el riego tecnificado que instalaron.</p>
+        <div class="testimonio-author">
+          <div class="author-avatar">MH</div>
+          <div>
+            <div class="author-name">Mario Herrera</div>
+            <div class="author-detail">Productor de nogales — Calle Larga, Los Andes</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonio-card reveal reveal-delay-1">
+        <div class="quote-icon">"</div>
+        <div class="stars">★★★★★</div>
+        <p class="testimonio-text">José Ignacio y su equipo son de esos profesionales que realmente se involucran con tu proyecto. El análisis de suelos cambió completamente nuestra forma de manejar el huerto de paltos. Excelente inversión.</p>
+        <div class="testimonio-author">
+          <div class="author-avatar">PT</div>
+          <div>
+            <div class="author-name">Pamela Torres</div>
+            <div class="author-detail">Productora de paltos — Petorca</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonio-card reveal reveal-delay-2">
+        <div class="quote-icon">"</div>
+        <div class="stars">★★★★★</div>
+        <p class="testimonio-text">Redujimos el consumo de agua en un 40% con el sistema de riego diseñado por AgroIntegra, sin perder calidad en la fruta. En plena escasez hídrica, eso es invaluable para seguir produciendo.</p>
+        <div class="testimonio-author">
+          <div class="author-avatar">RG</div>
+          <div>
+            <div class="author-name">Roberto González</div>
+            <div class="author-detail">Viñatero — Casablanca</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COBERTURA -->
+<section id="cobertura" class="section" aria-label="Comunas con cobertura">
+  <div class="section-inner">
+    <div class="section-header" style="margin-bottom:40px">
+      <span class="section-label">Zona de trabajo</span>
+      <h2 class="section-title">Cobertura en la <span>Región de Valparaíso</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="cobertura-inner">
+      <div>
+        <p style="font-size:0.97rem;color:#5a6a5d;line-height:1.7;margin-bottom:24px">Atendemos productores en todas las provincias de la región, con capacidad de visitas a terreno en un plazo de 48 horas.</p>
+        <div class="cobertura-highlight">
+          <h4>Atención a todo Chile</h4>
+          <p>Para proyectos fuera de la Región de Valparaíso, ofrecemos asesoría remota y visitas programadas según acuerdo. Contáctanos y evaluamos tu caso.</p>
+        </div>
+      </div>
+      <div class="comunas-grid">
+        <!-- Valparaíso -->
+        <span class="comuna-tag">Valparaíso</span><span class="comuna-tag">Viña del Mar</span><span class="comuna-tag">Casablanca</span><span class="comuna-tag">Quintero</span><span class="comuna-tag">Puchuncaví</span>
+        <!-- San Antonio -->
+        <span class="comuna-tag">San Antonio</span><span class="comuna-tag">Cartagena</span><span class="comuna-tag">El Quisco</span><span class="comuna-tag">El Tabo</span><span class="comuna-tag">Santo Domingo</span><span class="comuna-tag">Algarrobo</span>
+        <!-- San Felipe / Los Andes -->
+        <span class="comuna-tag">San Felipe</span><span class="comuna-tag">Los Andes</span><span class="comuna-tag">Calle Larga</span><span class="comuna-tag">Catemu</span><span class="comuna-tag">Llay-Llay</span><span class="comuna-tag">Panquehue</span><span class="comuna-tag">Putaendo</span><span class="comuna-tag">Santa María</span><span class="comuna-tag">Rinconada</span><span class="comuna-tag">San Esteban</span>
+        <!-- Quillota -->
+        <span class="comuna-tag">Quillota</span><span class="comuna-tag">La Calera</span><span class="comuna-tag">Hijuelas</span><span class="comuna-tag">La Cruz</span><span class="comuna-tag">Nogales</span><span class="comuna-tag">Olmué</span>
+        <!-- Petorca -->
+        <span class="comuna-tag">La Ligua</span><span class="comuna-tag">Petorca</span><span class="comuna-tag">Cabildo</span><span class="comuna-tag">Papudo</span><span class="comuna-tag">Zapallar</span>
+        <!-- Otras -->
+        <span class="comuna-tag">Limache</span><span class="comuna-tag">Villa Alemana</span><span class="comuna-tag">Quilpué</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAPA -->
+<div id="mapa" aria-label="Ubicación en mapa">
+  <div class="map-wrapper">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d212888.44874082702!2d-71.7249578!3d-33.0458423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689dfc0f8e4e9a1%3A0x6a8eab5e9e8e4d6f!2sRegi%C3%B3n%20de%20Valpara%C3%ADso%2C%20Chile!5e0!3m2!1ses!2scl!4v1718488800000"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Región de Valparaíso — Zona de cobertura AgroIntegra Consultores">
+    </iframe>
+    <div class="map-overlay" aria-hidden="true">
+      <strong>AgroIntegra Consultores</strong>
+      <span>Región de Valparaíso, Chile</span>
+    </div>
+  </div>
 </div>
 
-<div class="stats-bar">
-  <div class="stats-g">
-    <div class="stat"><div class="stat-n">4+</div><div class="stat-l">Años terreno</div></div>
-    <div class="stat"><div class="stat-n">20+</div><div class="stat-l">Certificaciones</div></div>
-    <div class="stat"><div class="stat-n">5</div><div class="stat-l">Rubros</div></div>
-    <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Compromiso</div></div>
-  </div>
-</div>
-
-<nav class="enav">
-  <div class="enav-inner">
-    <button class="etab on" onclick="swE('frutales',this)"><i class="ti ti-trees" aria-hidden="true"></i> Frutales</button>
-    <button class="etab" onclick="swE('riego',this)"><i class="ti ti-droplet-half-2" aria-hidden="true"></i> Riego</button>
-    <button class="etab" onclick="swE('suelos',this)"><i class="ti ti-seeding" aria-hidden="true"></i> Suelos</button>
-    <button class="etab" onclick="swE('fitosanidad',this)"><i class="ti ti-bug" aria-hidden="true"></i> Fitosanidad</button>
-    <button class="etab" onclick="swE('ganaderia',this)"><i class="ti ti-leaf" aria-hidden="true"></i> Ganadería</button>
-  </div>
-</nav>
-
-<section class="esect">
-  <div class="econt">
-
-    <div id="ep-frutales" class="epanel on">
-      <div class="ep-hdr">
-        <div class="ep-ico v"><i class="ti ti-trees" aria-hidden="true"></i></div>
-        <div><div class="ep-title">Manejo de frutales</div><div class="ep-sub">Cerezos · Nogales · Paltos · Frutales menores</div></div>
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo" style="margin-bottom:14px">
+        <svg width="36" height="36" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+          <path d="M22 6L36 36H8L22 6Z" fill="#4a9c54"/>
+          <ellipse cx="17" cy="20" rx="4" ry="6" fill="#2d6a35" transform="rotate(-20 17 20)"/>
+          <ellipse cx="27" cy="20" rx="4" ry="6" fill="#1a3a1f" transform="rotate(20 27 20)"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-name">AgroIntegra</span>
+          <span class="logo-sub">Consultores</span>
+        </div>
       </div>
-      <div class="ep-grid">
-        <div class="epc"><div class="epc-ico v"><i class="ti ti-cut" aria-hidden="true"></i></div><h4>Poda y formación</h4><p>Poda de formación, producción y renovación adaptada a cada especie y edad del huerto.</p><ul><li><i class="ti ti-check" aria-hidden="true"></i> Poda en verde y en seco</li><li><i class="ti ti-check" aria-hidden="true"></i> Aclareo de frutos</li><li><i class="ti ti-check" aria-hidden="true"></i> Regulación de carga productiva</li></ul></div>
-        <div class="epc"><div class="epc-ico v"><i class="ti ti-plant-2" aria-hidden="true"></i></div><h4>Nutrición y fertilización</h4><p>Programas según análisis de suelo y etapa fenológica. Foco en P, K y microelementos en floración.</p><ul><li><i class="ti ti-check" aria-hidden="true"></i> Análisis foliar e interpretación</li><li><i class="ti ti-check" aria-hidden="true"></i> Fertirrigación en goteo</li><li><i class="ti ti-check" aria-hidden="true"></i> Nutrición postcosecha</li></ul></div>
-        <div class="epc"><div class="epc-ico v"><i class="ti ti-star" aria-hidden="true"></i></div><h4>Calidad de fruta</h4><p>Maximizar calibre, color y firmeza. Protocolo de postcosecha para exportación.</p><ul><li><i class="ti ti-check" aria-hidden="true"></i> Control brix y firmeza</li><li><i class="ti ti-check" aria-hidden="true"></i> Cosecha escalonada</li><li><i class="ti ti-check" aria-hidden="true"></i> Registro y trazabilidad</li></ul></div>
-        <div class="epc"><div class="epc-ico v"><i class="ti ti-calendar-event" aria-hidden="true"></i></div><h4>Fenología y planificación</h4><p>Calendario desde dormancia hasta postcosecha. Anticipación a heladas y manejo de cuaja.</p><ul><li><i class="ti ti-check" aria-hidden="true"></i> Seguimiento fenológico semanal</li><li><i class="ti ti-check" aria-hidden="true"></i> Alertas agroclimáticas</li><li><i class="ti ti-check" aria-hidden="true"></i> Plan de temporada completo</li></ul></div>
+      <p>Asesoría agronómica profesional con enfoque en productividad, sostenibilidad y resultados concretos para agricultores de la Región de Valparaíso.</p>
+      <div class="social-links" aria-label="Redes sociales">
+        <a href="#" class="social-link" aria-label="Instagram">📷</a>
+        <a href="#" class="social-link" aria-label="Facebook">📘</a>
+        <a href="https://wa.me/56907150511" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp">💬</a>
+        <a href="mailto:contacto@agrointegra.cl" class="social-link" aria-label="Email">✉️</a>
       </div>
-      <div class="ep-tip"><i class="ti ti-bulb" aria-hidden="true"></i><p><strong>Dato técnico:</strong> En cerezos, la poda en verde (60–90 días post plena flor) aumenta el calibre entre 15–20%. Un buen manejo nutricional postcosecha asegura reservas para la siguiente temporada.</p></div>
     </div>
 
-    <div id="ep-riego" class="epanel">
-      <div class="ep-hdr">
-        <div class="ep-ico a"><i class="ti ti-droplet-half-2" aria-hidden="true"></i></div>
-        <div><div class="ep-title">Riego tecnificado</div><div class="ep-sub">Goteo · Microaspersión · Gestión hídrica · Drones</div></div>
-      </div>
-      <div class="ep-grid">
-        <div class="epc"><div class="epc-ico a"><i class="ti ti-device-analytics" aria-hidden="true"></i></div><h4>Diagnóstico de sistemas</h4><p>Evaluación de uniformidad, caudales y presiones. Detección de pérdidas y déficit hídrico.</p><ul><li><i class="ti ti-check" aria-hidden="true"></i> Coeficiente de uniformidad (CU)</li><li><i class="ti ti-check" aria-hidden="true"></i> Balance hídrico semanal</li><li><i class="ti ti-check" aria-hidden="true"></i> Lectura de tensiómetros</li></ul></div>
-        <div class="epc"><div class="epc-ico a"><i class="ti ti-ripple" aria-hidden="true"></i></div><h4>Programa de riego</h4><p>Calendarios basados en evapotranspiración (Kc × ETo) y fase fenológica. Estrés hídrico controlado.</p><ul><li><i class="ti ti-check" aria-hidden="true"></i> Cálculo de dosis y frecuencia</li><li><i class="ti ti-check" aria-hidden="true"></i> Ajuste según AGROMET</li><li><i class="ti ti-check" aria-hidden="true"></i> Riego deficitario controlado</li></ul></div>
-        <div class="epc"><div class="epc-ico a"><i class="ti ti-chart-dots" aria-hidden="true"></i></div><h4>Fertirrigación</h4><p>Fertilizantes vía agua de riego. Manejo de CE y pH para máxima eficiencia nutricional.</p><ul><li><i class="ti ti-check" aria-hidden="true"></i> Fórmulas N-P-K por etapa</li><li><i class="ti ti-check" aria-hidden="true"></i> Control CE y pH</li><li><i class="ti ti-check" aria-hidden="true"></i> Prevención de obstrucciones</li></ul></div>
-        <div class="epc"><div class="epc-ico a"><i class="ti ti-drone" aria-hidden="true"></i></div><h4>Inspección con drones</h4><p>Detección de fallas en infraestructura hídrica y zonas críticas. Certificación CIREN 2024.</p><ul><li><i class="ti ti-check" aria-hidden="true"></i> Mapeo de zonas críticas</li><li><i class="ti ti-check" aria-hidden="true"></i> Índice NDVI</li><li><i class="ti ti-check" aria-hidden="true"></i> Informe georreferenciado</li></ul></div>
-      </div>
-      <div class="ep-tip"><i class="ti ti-bulb" aria-hidden="true"></i><p><strong>Dato técnico:</strong> Un goteo con CU bajo 80% genera pérdidas de agua de hasta 25–30%. Revisión anual y ajuste de presiones reduce el consumo hídrico sin afectar rendimiento.</p></div>
-    </div>
-
-    <div id="ep-suelos" class="epanel">
-      <div class="ep-hdr">
-        <div class="ep-ico c"><i class="ti ti-seeding" aria-hidden="true"></i></div>
-        <div><div class="ep-title">Gestión de suelos</div><div class="ep-sub">Análisis · Enmiendas · Permacultura · Regeneración</div></div>
-      </div>
-      <div class="ep-grid">
-        <div class="epc"><div class="epc-ico c"><i class="ti ti-test-pipe" aria-hidden="true"></i></div><h4>Análisis e interpretación</h4><p>Lectura de análisis químico, físico y biológico. Identificación de limitantes nutricionales y salinidad.</p><ul><li><i class="ti ti-check" aria-hidden="true"></i> Interpretación pH, MO y CE</li><li><i class="ti ti-check" aria-hidden="true"></i> Corrección de acidez</li><li><i class="ti ti-check" aria-hidden="true"></i> Plan de enmiendas</li></ul></div>
-        <div class="epc"><div class="epc-ico c"><i class="ti ti-recycle" aria-hidden="true"></i></div><h4>Permacultura aplicada</h4><p>Sistemas prediales regenerativos: cubiertas, compostaje, biofertilizantes y curvas de nivel.</p><ul><li><i class="ti ti-check" aria-hidden="true"></i> Diseño predial integrado</li><li><i class="ti ti-check" aria-hidden="true"></i> Compostaje y lombricultura</li><li><i class="ti ti-check" aria-hidden="true"></i> Cubiertas vegetales vivas</li></ul></div>
-        <div class="epc"><div class="epc-ico c"><i class="ti ti-wand" aria-hidden="true"></i></div><h4>Regeneración de suelos</h4><p>Recuperación de suelos degradados: MO, subsolado, biostimulantes y microbioma activo.</p><ul><li><i class="ti ti-check" aria-hidden="true"></i> Indicadores biológicos</li><li><i class="ti ti-check" aria-hidden="true"></i> Inoculantes microbianos</li><li><i class="ti ti-check" aria-hidden="true"></i> Reducción de agroquímicos</li></ul></div>
-        <div class="epc"><div class="epc-ico c"><i class="ti ti-droplet" aria-hidden="true"></i></div><h4>Agua en el suelo</h4><p>Capacidad de campo, infiltración y retención. Clave para zonas áridas como Petorca.</p><ul><li><i class="ti ti-check" aria-hidden="true"></i> Curvas de retención hídrica</li><li><i class="ti ti-check" aria-hidden="true"></i> Mulching y coberturas</li><li><i class="ti ti-check" aria-hidden="true"></i> Zanjas de infiltración</li></ul></div>
-      </div>
-      <div class="ep-tip"><i class="ti ti-bulb" aria-hidden="true"></i><p><strong>Dato técnico:</strong> Un suelo con 3% de MO retiene hasta 3× más agua que uno con 1%. Aumentar la MO en 1 punto reduce los riegos necesarios en 20–30% en suelos de textura franca.</p></div>
-    </div>
-
-    <div id="ep-fitosanidad" class="epanel">
-      <div class="ep-hdr">
-        <div class="ep-ico v"><i class="ti ti-bug" aria-hidden="true"></i></div>
-        <div><div class="ep-title">Control fitosanitario</div><div class="ep-sub">Monitoreo · Plagas · Enfermedades · BPA</div></div>
-      </div>
-      <div class="ep-grid">
-        <div class="epc"><div class="epc-ico v"><i class="ti ti-eye" aria-hidden="true"></i></div><h4>Monitoreo de plagas</h4><p>Detección temprana de plagas cuarentenarias. Umbrales de daño económico y decisión de intervención.</p><ul><li><i class="ti ti-check" aria-hidden="true"></i> Monitoreo Drosophila suzukii</li><li><i class="ti ti-check" aria-hidden="true"></i> Trampas y registros SAG</li><li><i class="ti ti-check" aria-hidden="true"></i> Curvas de vuelo de insectos</li></ul></div>
-        <div class="epc"><div class="epc-ico v"><i class="ti ti-shield-check" aria-hidden="true"></i></div><h4>Manejo integrado (MIP)</h4><p>Control con criterio técnico. Agentes biológicos, rotación de principios activos, cuadernos SAG.</p><ul><li><i class="ti ti-check" aria-hidden="true"></i> Control biológico</li><li><i class="ti ti-check" aria-hidden="true"></i> Rotación de activos</li><li><i class="ti ti-check" aria-hidden="true"></i> Registro aplicaciones SAG</li></ul></div>
-      </div>
-      <div class="ep-tip"><i class="ti ti-bulb" aria-hidden="true"></i><p><strong>Certificado SAG:</strong> Uso correcto de plaguicidas (2021) y monitoreo Drosophila suzukii (2022). Cumplimiento de períodos de carencia para exportación.</p></div>
-    </div>
-
-    <div id="ep-ganaderia" class="epanel">
-      <div class="ep-hdr">
-        <div class="ep-ico c"><i class="ti ti-leaf" aria-hidden="true"></i></div>
-        <div><div class="ep-title">Ganadería menor</div><div class="ep-sub">Caprinos · Ovinos · Pastizales · Alimentación</div></div>
-      </div>
-      <div class="ep-grid">
-        <div class="epc"><div class="epc-ico c"><i class="ti ti-grain" aria-hidden="true"></i></div><h4>Manejo de pastizales</h4><p>Pastoreo rotativo, carga animal por hectárea y mejoramiento de praderas en zonas áridas.</p><ul><li><i class="ti ti-check" aria-hidden="true"></i> Carga animal óptima</li><li><i class="ti ti-check" aria-hidden="true"></i> Praderas para zona seca</li><li><i class="ti ti-check" aria-hidden="true"></i> Siembra de forrajeras</li></ul></div>
-        <div class="epc"><div class="epc-ico c"><i class="ti ti-chart-pie" aria-hidden="true"></i></div><h4>Nutrición animal</h4><p>Raciones para caprinos y ovinos por etapa productiva. Subproductos agrícolas locales.</p><ul><li><i class="ti ti-check" aria-hidden="true"></i> Ración cabrillas y cabras</li><li><i class="ti ti-check" aria-hidden="true"></i> Uso de residuos de cosecha</li><li><i class="ti ti-check" aria-hidden="true"></i> Reducción de costos</li></ul></div>
-      </div>
-      <div class="ep-tip"><i class="ti ti-bulb" aria-hidden="true"></i><p><strong>Formación FIA:</strong> Modernización y sustentabilidad del rubro caprino (2023). Experiencia con productores de Coquimbo y Valparaíso.</p></div>
-    </div>
-
-  </div>
-</section>
-
-<section class="proj-sect">
-  <h2 class="sdt">Proyectos y experiencia</h2>
-  <p class="sds">Trayectoria profesional comprobada</p>
-  <div class="proj-grid">
-    <div class="pjc"><div class="pjt"><div class="pji g"><i class="ti ti-microscope" aria-hidden="true"></i></div><div><span class="ptag g">FONDECYT · INIA</span><h4>Proyecto N°11200702</h4></div></div><div class="pjdate"><i class="ti ti-calendar" aria-hidden="true"></i> Nov 2022 – Mar 2023 · Santiago</div><p>Microbioma de tomate y estrés hídrico. Equipo multidisciplinario y adaptación climática.</p><ul class="pjpts"><li><i class="ti ti-check" aria-hidden="true"></i> Biología del suelo aplicada</li><li><i class="ti ti-check" aria-hidden="true"></i> Adaptación al cambio climático</li></ul></div>
-    <div class="pjc"><div class="pjt"><div class="pji o"><i class="ti ti-tractor" aria-hidden="true"></i></div><div><span class="ptag o">Administración campo</span><h4>Agrícola Santa Catalina</h4></div></div><div class="pjdate"><i class="ti ti-calendar" aria-hidden="true"></i> Mayo 2023 – Mar 2025 · Petorca</div><p>Dirección completa: poda, riego, cosecha, fertilización y cuadrillas en terreno.</p><ul class="pjpts"><li><i class="ti ti-check" aria-hidden="true"></i> Control rendimiento/ha</li><li><i class="ti ti-check" aria-hidden="true"></i> BPA y sostenibilidad hídrica</li></ul></div>
-    <div class="pjc"><div class="pjt"><div class="pji p"><i class="ti ti-certificate" aria-hidden="true"></i></div><div><span class="ptag p">FIA · SAG · CIREN</span><h4>Innovación y sostenibilidad</h4></div></div><div class="pjdate"><i class="ti ti-calendar" aria-hidden="true"></i> 2021 – 2025 · V Región</div><p>Drones hídricos, permacultura aplicada y formulación de proyectos FIA.</p><ul class="pjpts"><li><i class="ti ti-check" aria-hidden="true"></i> Drones CIREN 2024</li><li><i class="ti ti-check" aria-hidden="true"></i> Diseño predial regenerativo</li></ul></div>
-    <div class="pjc"><div class="pjt"><div class="pji b"><i class="ti ti-trees" aria-hidden="true"></i></div><div><span class="ptag b">Consultoría técnica</span><h4>Manejo de frutales</h4></div></div><div class="pjdate"><i class="ti ti-calendar" aria-hidden="true"></i> 2024 · Zona central</div><p>Cerezos y nogales: rendimiento y calidad de fruta para exportación.</p><ul class="pjpts"><li><i class="ti ti-check" aria-hidden="true"></i> Postcosecha exportación</li><li><i class="ti ti-check" aria-hidden="true"></i> Nutrición frutales menores</li></ul></div>
-  </div>
-</section>
-<section class="success-section">
-  <h2 class="sdt" style="color:#1a3a1a;">Casos de Éxito</h2>
-  <p class="sds" style="color:#8a8a68;">Resultados obtenidos en terreno</p>
-
-  <div class="proj-grid" style="max-width:720px;margin:0 auto;">
-
-    <div class="pjc">
-      <div class="pjt"><div class="pji b"><i class="ti ti-droplet-half-2" aria-hidden="true"></i></div><div><span class="ptag b">Riego tecnificado</span><h4>Optimización de Riego en Nogales</h4></div></div>
-      <div class="pjdate"><i class="ti ti-map-pin" aria-hidden="true"></i> Cabildo, V Región</div>
-      <p>Reducción del consumo de agua mediante ajustes hidráulicos y monitoreo continuo.</p>
-      <ul class="pjpts">
-        <li><i class="ti ti-check" aria-hidden="true"></i> Disminución de consumo hídrico</li>
-        <li><i class="ti ti-check" aria-hidden="true"></i> Mayor uniformidad de riego</li>
+    <div class="footer-col">
+      <h5>Servicios</h5>
+      <ul>
+        <li><a href="#servicios">Fertilización</a></li>
+        <li><a href="#servicios">Diseño de Riego</a></li>
+        <li><a href="#servicios">Manejo de Frutales</a></li>
+        <li><a href="#servicios">Agricultura de Precisión</a></li>
+        <li><a href="#servicios">Análisis de Suelos</a></li>
+        <li><a href="#servicios">Gestión Productiva</a></li>
       </ul>
     </div>
 
-    <div class="pjc">
-      <div class="pjt"><div class="pji g"><i class="ti ti-seeding" aria-hidden="true"></i></div><div><span class="ptag g">Suelos</span><h4>Recuperación de Suelos</h4></div></div>
-      <div class="pjdate"><i class="ti ti-map-pin" aria-hidden="true"></i> Petorca, V Región</div>
-      <p>Programa de compostaje y regeneración de materia orgánica en suelo degradado.</p>
-      <ul class="pjpts">
-        <li><i class="ti ti-check" aria-hidden="true"></i> Mejora de infiltración</li>
-        <li><i class="ti ti-check" aria-hidden="true"></i> Mayor actividad biológica</li>
+    <div class="footer-col">
+      <h5>Navegación</h5>
+      <ul>
+        <li><a href="#hero">Inicio</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#testimonios">Testimonios</a></li>
+        <li><a href="#cobertura">Cobertura</a></li>
+        <li><a href="#contacto">Contacto</a></li>
       </ul>
     </div>
 
-  </div>
-</section>
-<section class="testi-sect">
-  <h2 class="st">Lo que dicen los productores</h2>
-  <p class="ss">Clientes de la Región de Valparaíso y Coquimbo</p>
-  <div class="tgrid" style="max-width:720px;margin:0 auto;">
-    <div class="tc"><div class="tc-top"><div class="tc-ico"><i class="ti ti-trees" aria-hidden="true"></i></div><div><div class="tc-name">Rodrigo Muñoz</div><div class="tc-role">Nogalero · Cabildo, V Región</div></div></div><div class="stars"><i class="ti ti-star-filled" aria-hidden="true"></i><i class="ti ti-star-filled" aria-hidden="true"></i><i class="ti ti-star-filled" aria-hidden="true"></i><i class="ti ti-star-filled" aria-hidden="true"></i><i class="ti ti-star-filled" aria-hidden="true"></i></div><p class="tc-q">Una visita y detectó pérdidas de agua que no había visto en años. Bajé el consumo un 30% sin perder producción.</p><span class="tc-tag"><i class="ti ti-droplet" aria-hidden="true"></i> Riego tecnificado</span></div>
-    <div class="tc"><div class="tc-top"><div class="tc-ico"><i class="ti ti-seeding" aria-hidden="true"></i></div><div><div class="tc-name">Carmen Leal</div><div class="tc-role">Huerto 2 ha · Petorca</div></div></div><div class="stars"><i class="ti ti-star-filled" aria-hidden="true"></i><i class="ti ti-star-filled" aria-hidden="true"></i><i class="ti ti-star-filled" aria-hidden="true"></i><i class="ti ti-star-filled" aria-hidden="true"></i><i class="ti ti-star-filled" aria-hidden="true"></i></div><p class="tc-q">Me lleva el plan semana a semana por WhatsApp. Cuando hay un problema viene rápido. La mejor cosecha que hemos tenido.</p><span class="tc-tag"><i class="ti ti-map-pin" aria-hidden="true"></i> Plan mensual terreno</span></div>
-    <div class="tc"><div class="tc-top"><div class="tc-ico"><i class="ti ti-plant-2" aria-hidden="true"></i></div><div><div class="tc-name">Manuel Aravena</div><div class="tc-role">Cerezos · La Ligua, V Región</div></div></div><div class="stars"><i class="ti ti-star-filled" aria-hidden="true"></i><i class="ti ti-star-filled" aria-hidden="true"></i><i class="ti ti-star-filled" aria-hidden="true"></i><i class="ti ti-star-filled" aria-hidden="true"></i><i class="ti ti-star-filled" aria-hidden="true"></i></div><p class="tc-q">Manejo fitosanitario impecable, cero pérdidas por hongos. Sabe lo que hace y se nota que ama el campo.</p><span class="tc-tag"><i class="ti ti-bug" aria-hidden="true"></i> Control fitosanitario</span></div>
-    <div class="tc"><div class="tc-top"><div class="tc-ico"><i class="ti ti-leaf" aria-hidden="true"></i></div><div><div class="tc-name">Soledad Torres</div><div class="tc-role">Criancera caprina · Illapel</div></div></div><div class="stars"><i class="ti ti-star-filled" aria-hidden="true"></i><i class="ti ti-star-filled" aria-hidden="true"></i><i class="ti ti-star-filled" aria-hidden="true"></i><i class="ti ti-star-filled" aria-hidden="true"></i><i class="ti ti-star-filled" aria-hidden="true"></i></div><p class="tc-q">Plan de regeneración con permacultura y en tres meses el cambio en mis pastizales fue increíble. Muy profesional.</p><span class="tc-tag"><i class="ti ti-grain" aria-hidden="true"></i> Suelos · Ganadería</span></div>
-  </div>
-</section>
-
-<section class="plans-sect">
-  <h2 class="sdt">Planes de asesoría</h2>
-  <p class="sds" style="margin-bottom:1.2rem;">Remoto o con visita a terreno · Contacto directo por WhatsApp</p>
-
-  <div class="ofbanner">
-    <i class="ti ti-flame fire" aria-hidden="true"></i>
-    <div class="obt"><strong>🔥 OFERTA DE TEMPORADA — Julio 2026</strong><span>Primer mes con 20% de descuento en cualquier plan mensual. ¡Plazas limitadas!</span></div>
-    <div class="obb">20% OFF</div>
-  </div>
-
-  <div class="ptabs">
-    <button class="ptb on" onclick="swP('remoto',this)"><i class="ti ti-device-mobile" aria-hidden="true"></i> Remoto</button>
-    <button class="ptb" onclick="swP('terreno',this)"><i class="ti ti-tractor" aria-hidden="true"></i> Con visita a terreno</button>
-  </div>
-
-  <div id="pt-remoto" class="pgrp on">
-    <div class="plan">
-      <div class="picon"><i class="ti ti-calendar-day" aria-hidden="true"></i></div>
-      <h3>Consulta Diaria</h3>
-      <div class="price-row"><span class="pm">$14.</span><span class="pc">990</span><span class="pp">CLP / sesión</span></div>
-      <p class="pdesc">Atención puntual para problemas urgentes. Respuesta en menos de 2 horas hábiles.</p>
-      <ul class="feats">
-        <li><i class="ti ti-check" aria-hidden="true"></i> Diagnóstico vía WhatsApp</li>
-        <li><i class="ti ti-check" aria-hidden="true"></i> Videollamada hasta 30 min</li>
-        <li><i class="ti ti-check" aria-hidden="true"></i> Recomendación escrita</li>
-        <li><i class="ti ti-check" aria-hidden="true"></i> Riego, plagas, poda o fertilización</li>
-      </ul>
-      <a class="bwp outline" href="https://wa.me/56971505118?text=Hola%20José%2C%20quiero%20contratar%20la%20*Consulta%20Diaria%20Remota*%20(%2414.990).%20Mi%20consulta%20es%20sobre%3A%20" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Consultar ahora</a>
-    </div>
-    <div class="plan feat">
-      <div class="pbadge am">⭐ Más elegido</div>
-      <div class="picon"><i class="ti ti-calendar-month" aria-hidden="true"></i></div>
-      <h3>Plan Mensual</h3>
-      <div class="ptach">$149.990 <span class="pdesc-badge">-20%</span></div>
-      <div class="price-row"><span class="pm">$119.</span><span class="pc">990</span><span class="pp">CLP / mes</span></div>
-      <p class="pdesc">Acompañamiento técnico completo. Planificación, seguimiento y soporte durante el mes.</p>
-      <ul class="feats">
-        <li><i class="ti ti-check" aria-hidden="true"></i> Hasta 8 consultas al mes</li>
-        <li><i class="ti ti-check" aria-hidden="true"></i> Plan semanal de labores</li>
-        <li><i class="ti ti-check" aria-hidden="true"></i> Informe mensual</li>
-        <li><i class="ti ti-check" aria-hidden="true"></i> Soporte prioritario WhatsApp</li>
-        <li><i class="ti ti-check" aria-hidden="true"></i> Alertas agroclimáticas</li>
-      </ul>
-      <a class="bwp amarillo" href="https://wa.me/56971505118?text=Hola%20José%2C%20quiero%20contratar%20el%20*Plan%20Mensual%20Remoto*%20(%24119.990).%20Mi%20campo%20se%20dedica%20a%3A%20" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> ¡Contratar con 20% OFF!</a>
+    <div class="footer-col">
+      <h5>Contacto</h5>
+      <div class="footer-contact-item">
+        <span class="icon">💬</span>
+        <span><a href="https://wa.me/56907150511" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.7);transition:color 0.2s" onmouseover="this.style.color='#8cc994'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">+56 9 0715 0511</a></span>
+      </div>
+      <div class="footer-contact-item">
+        <span class="icon">📱</span>
+        <span><a href="tel:+56907150511" style="color:rgba(255,255,255,0.7);transition:color 0.2s" onmouseover="this.style.color='#8cc994'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">+56 9 0715 0511</a></span>
+      </div>
+      <div class="footer-contact-item">
+        <span class="icon">✉️</span>
+        <span><a href="mailto:contacto@agrointegra.cl" style="color:rgba(255,255,255,0.7);transition:color 0.2s" onmouseover="this.style.color='#8cc994'" onmouseout="this.style.color='rgba(255,255,255,0.7)'">contacto@agrointegra.cl</a></span>
+      </div>
+      <div class="footer-contact-item">
+        <span class="icon">📍</span>
+        <span>Región de Valparaíso, Chile</span>
+      </div>
     </div>
   </div>
 
-  <div id="pt-terreno" class="pgrp">
-    <div class="plan">
-      <div class="picon"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
-      <h3>Visita Técnica</h3>
-      <div class="price-row"><span class="pm">$24.</span><span class="pc">990</span><span class="pp">CLP / visita</span></div>
-      <div class="hatag"><i class="ti ti-chart-area" aria-hidden="true"></i> Predios hasta 5 ha</div>
-      <p class="pdesc">Visita presencial con diagnóstico completo e informe técnico post-visita.</p>
-      <ul class="feats">
-        <li><i class="ti ti-check" aria-hidden="true"></i> Recorrida completa del predio</li>
-        <li><i class="ti ti-check" aria-hidden="true"></i> Diagnóstico riego, suelo o cultivo</li>
-        <li><i class="ti ti-check" aria-hidden="true"></i> Informe escrito + fotos</li>
-        <li><i class="ti ti-check" aria-hidden="true"></i> Recomendaciones inmediatas</li>
-      </ul>
-      <a class="bwp outline" href="https://wa.me/56971505118?text=Hola%20José%2C%20quiero%20agendar%20una%20*Visita%20Técnica*%20(%2424.990).%20Mi%20predio%20tiene%20__%20ha%20y%20necesito%20asesoría%20en%3A%20" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Agendar visita</a>
-    </div>
-    <div class="plan oferta">
-      <div class="pbadge ro">🔥 OFERTA — Mejor valor</div>
-      <div class="picon"><i class="ti ti-calendar-stats" aria-hidden="true"></i></div>
-      <h3>Plan Mensual Terreno</h3>
-      <div class="ptach">$224.990 <span class="pdesc-badge">-20%</span></div>
-      <div class="price-row"><span class="pm">$179.</span><span class="pc">990</span><span class="pp">CLP / mes</span></div>
-      <div class="hatag"><i class="ti ti-chart-area" aria-hidden="true"></i> Hasta 5 ha · 4 visitas/mes</div>
-      <p class="pdesc">Seguimiento presencial semanal + soporte remoto ilimitado entre visitas.</p>
-      <ul class="feats">
-        <li><i class="ti ti-check" aria-hidden="true"></i> 4 visitas a terreno/mes</li>
-        <li><i class="ti ti-check" aria-hidden="true"></i> WhatsApp ilimitado</li>
-        <li><i class="ti ti-check" aria-hidden="true"></i> Plan semanal de labores</li>
-        <li><i class="ti ti-check" aria-hidden="true"></i> Control riego, plagas y nutrición</li>
-        <li><i class="ti ti-check" aria-hidden="true"></i> Informe mensual fotográfico</li>
-      </ul>
-      <a class="bwp rojo" href="https://wa.me/56971505118?text=Hola%20José%2C%20quiero%20contratar%20el%20*Plan%20Mensual%20con%20Visitas%20a%20Terreno*%20(%24179.990).%20Mi%20predio%20tiene%20__%20ha%20y%20se%20dedica%20a%3A%20" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> ¡Contratar con 20% OFF!</a>
-    </div>
+  <div class="footer-bottom">
+    <p>© 2025 AgroIntegra Consultores. Todos los derechos reservados.</p>
+    <p>Diseño web por <span class="tierra-line">AgroIntegra</span> • Innovación · Sostenibilidad · Resultados</p>
   </div>
-
-  <div class="pnote">
-    <h4><i class="ti ti-chart-area" aria-hidden="true"></i> Precios por superficie de predio</h4>
-    <div class="prows">
-      <div class="prow or"><span class="lbl">Hasta 5 ha</span><span class="val">$24.990 / visita</span></div>
-      <div class="prow"><span class="lbl">5 – 10 ha</span><span class="val">$39.990 / visita</span></div>
-      <div class="prow"><span class="lbl">10 – 20 ha</span><span class="val">$59.990 / visita</span></div>
-      <div class="prow"><span class="lbl">Más de 20 ha</span><span class="val">Cotización</span></div>
-    </div>
-  </div>
-
-  <div class="cbox">
-    <i class="ti ti-stars big" aria-hidden="true"></i>
-    <div>
-      <p class="ct">¿Predio mayor a 20 ha, ganadería o proyecto FIA?</p>
-      <p class="cd">Cotización personalizada sin compromiso. Ganadería caprina, FONDECYT, drones y más.</p>
-      <a class="ctalink" href="https://wa.me/56971505118?text=Hola%20José%2C%20necesito%20un%20plan%20personalizado.%20Mi%20predio%20tiene%20__%20ha%20y%20se%20dedica%20a%3A%20" target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Solicitar cotización →</a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <p>© 2025 José Ignacio Farías López · Ingeniero Agrícola · <a href="tel:+56971505118">+56 9 7150 5118</a> · <a href="mailto:farias.l.jose95@gmail.com">farias.l.jose95@gmail.com</a> · Petorca, Valparaíso</p>
 </footer>
 
-</div>
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/56907150511?text=Hola%2C%20solicito%20información%20sobre%20asesoría%20agrícola" target="_blank" rel="noopener" class="float-wsp" aria-label="Contactar por WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
 <script>
-function swE(t,b){document.querySelectorAll('.epanel').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.etab').forEach(x=>x.classList.remove('on'));document.getElementById('ep-'+t).classList.add('on');b.classList.add('on');}
-function swP(t,b){document.querySelectorAll('.pgrp').forEach(g=>g.classList.remove('on'));document.querySelectorAll('.ptb').forEach(x=>x.classList.remove('on'));document.getElementById('pt-'+t).classList.add('on');b.classList.add('on');}
+// ===== NAV TOGGLE =====
+const navToggle = document.getElementById('navToggle');
+const nav = document.getElementById('nav');
+navToggle.addEventListener('click', () => {
+  const open = nav.classList.toggle('open');
+  navToggle.classList.toggle('open', open);
+  navToggle.setAttribute('aria-expanded', open);
+});
+// Close nav on link click (mobile)
+nav.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    nav.classList.remove('open');
+    navToggle.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// ===== HEADER SCROLL =====
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// ===== SCROLL REVEAL =====
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(r => revealObserver.observe(r));
+
+// ===== FORM WHATSAPP =====
+const form = document.getElementById('contactForm');
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const nombre = document.getElementById('nombre').value.trim();
+  const telefono = document.getElementById('telefono').value.trim();
+  const correo = document.getElementById('correo').value.trim();
+  const comuna = document.getElementById('comuna').value;
+  const cultivo = document.getElementById('cultivo').value;
+  const superficie = document.getElementById('superficie').value.trim();
+  const mensaje = document.getElementById('mensaje').value.trim();
+
+  // Validate required fields
+  const fields = [{val: nombre, name: 'nombre'}, {val: telefono, name: 'teléfono'}, {val: correo, name: 'correo'}, {val: comuna, name: 'comuna'}, {val: cultivo, name: 'cultivo'}, {val: superficie, name: 'superficie'}];
+  for (const f of fields) {
+    if (!f.val) {
+      showToast('⚠️ Por favor completa el campo: ' + f.name);
+      return;
+    }
+  }
+
+  const text = `Hola, solicito asesoría agrícola con AgroIntegra Consultores.
+
+👤 *Nombre:* ${nombre}
+📱 *Teléfono:* ${telefono}
+✉️ *Correo:* ${correo}
+📍 *Comuna:* ${comuna}
+🌱 *Cultivo:* ${cultivo}
+🗺️ *Superficie:* ${superficie} ha${mensaje ? `\n💬 *Consulta:* ${mensaje}` : ''}
+
+Quedo atento/a a su respuesta. ¡Gracias!`;
+
+  const url = `https://wa.me/56907150511?text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank', 'noopener,noreferrer');
+  showToast('✅ Redirigiendo a WhatsApp…');
+  form.reset();
+});
+
+// ===== TOAST =====
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3800);
+}
+
+// ===== SMOOTH SCROLL =====
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const offset = 80;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+
+// ===== ANIMATE STATS COUNTER =====
+function animateCount(el, target, duration) {
+  let start = 0;
+  const step = (timestamp) => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const isFloat = String(target).includes('.');
+    el.textContent = (isFloat ? (eased * target).toFixed(1) : Math.floor(eased * target)).toLocaleString('es-CL');
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = String(target).includes('+') ? '+' + target.replace('+','') : el.textContent;
+  };
+  requestAnimationFrame(step);
+}
+
+const statNumbers = document.querySelectorAll('.stat-number');
+const statsObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const raw = e.target.textContent.replace(/\+|\.|\s/g, '').replace(',','.');
+      const num = parseFloat(raw);
+      if (!isNaN(num)) animateCount(e.target, num, 1500);
+      statsObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+statNumbers.forEach(s => statsObserver.observe(s));
 </script>
 </body>
 </html>
